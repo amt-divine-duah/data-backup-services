@@ -55,3 +55,17 @@ input::placeholder {
   align-items: center;
   flex-direction: column;
 }
+
+.main-container {
+  padding-top: 0.5rem; 
+}
+
+.alert-display {
+  width: 800px;
+  margin: 0 auto;
+}
+.alert-message {
+  display: block;
+  text-align: center;
+  color: rgb(45, 45, 48);
+}
