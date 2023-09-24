@@ -1,8 +1,20 @@
 from flask import Flask, render_template, jsonify, request
+from flask_sqlalchemy import SQLAlchemy
+from dotenv import load_dotenv
+import os
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+dotenv_path = os.path.join(basedir, '.env')
+
+load_dotenv(dotenv_path)
 
 # create instance of the flask app
 app = Flask(__name__)
 
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
 
 @app.route("/")
 def index():
