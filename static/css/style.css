@@ -10,7 +10,7 @@
   background-image: url("../images/kiddo.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100vh;
+  /* height: auto; */
   display: flex;
   gap: 8rem;
   justify-content: space-between;
